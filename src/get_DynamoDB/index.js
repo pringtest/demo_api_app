@@ -10,12 +10,16 @@ dotenv.config();
 const {
   REGION,
   USER_TABLE_NAME,
+  ACCESS_KEY,
+  SECRET_KEY,
 } = require('./config');
 
 // AWS SERVICES
 const docClient = new AWS.DynamoDB.DocumentClient({
   apiVersion: '2012-08-10',
   region: REGION,
+  accessKeyId: ACCESS_KEY,
+  secretAccessKey: SECRET_KEY, 
 });
 
 // GLOBAL FUNCTION
