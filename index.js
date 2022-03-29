@@ -26,7 +26,7 @@ app.get("/dynamodb", async (req, res, next) => {
   }
 });
 
-app.get("/rds", (req, res) => {
+app.get("/rds", async (req, res) => {
   try {
     var resp = await getRDS.handler();
     if (resp.statusCode == 200) {

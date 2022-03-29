@@ -81,7 +81,7 @@ async function successPayload(type, input, message) {
 exports.handler = async (event) => {
   try {
     const sql = `select * from ${RDS_TABLENAME}`;
-    connection.query(sql, (err, result) => {
+    connection.query(sql, async (err, result) => {
       if (err) {
         throw err;
       } else {
