@@ -2,7 +2,7 @@ module.exports = {
 	apps: [
 		{
 			name: 'ExpressJs',
-			script: 'node index.js',
+			script: 'sudo node index.js',
 			instances: 0,
 			exec_mode: 'fork',
 			watch: true,
