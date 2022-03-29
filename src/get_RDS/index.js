@@ -2,20 +2,26 @@
 /* eslint-disable no-useless-escape */
 
 // LIBRARY
-const AWS = require('aws-sdk');
+var mysql = require('mysql');
 const dotenv = require('dotenv');
 dotenv.config();
 
 // ENVIRONMENT
 const {
-  REGION,
-  USER_TABLE_NAME,
+  RDS_HOSTNAME,
+  RDS_USERNAME,
+  RDS_PASSWORD,
+  RDS_PORT,
+  RDS_DATABASE,
 } = require('./config');
 
-// AWS SERVICES
-const docClient = new AWS.DynamoDB.DocumentClient({
-  apiVersion: '2012-08-10',
-  region: REGION,
+// MYSQL SERVICES
+var connection = mysql.createConnection({
+  host: RDS_HOSTNAME,
+  user: RDS_USERNAME,
+  password: RDS_PASSWORD,
+  port: RDS_PORT,
+  database: RDS_DATABASE
 });
 
 // GLOBAL FUNCTION
@@ -73,16 +79,15 @@ async function successPayload(type, input, message) {
 // MAIN FUNCTION
 exports.handler = async (event) => {
   try {
-    // console.log(JSON.stringify(event));
-
-    // get data in dynamo DB
-    var params = {
-      TableName: USER_TABLE_NAME,
-    };
-    const scanResp = await docClient.scan(params).promise();
-
-    const response = await successPayload('data', scanResp);
-    return response;
+    const sql = `select * from ${RDS_DATABASE}`;
+    connection.query(sql, (err, result) => {
+      if (err) {
+        throw err;
+      } else {
+        const response = await successPayload('data', result);
+        return response;
+      }
+    });
   } catch (error) {
     const response = await errorPayload(400, error.message);
     return response;

@@ -1,6 +1,7 @@
 module.exports = {
-  REGION: process.env.REGION,
-  USER_TABLE_NAME: process.env.USER_TABLE_NAME,
-  ACCESS_KEY: process.env.ACCESS_KEY,
-  SECRET_KEY: process.env.SECRET_KEY,
+  RDS_HOSTNAME: process.env.RDS_HOSTNAME,
+  RDS_USERNAME: process.env.RDS_USERNAME,
+  RDS_PASSWORD: process.env.RDS_PASSWORD,
+  RDS_PORT: process.env.RDS_PORT,
+  RDS_DATABASE: process.env.RDS_DATABASE,
 };

@@ -1,5 +1,5 @@
 const express = require("express");
-const { getDynamoDB } = require("./src");
+const { getDynamoDB, getRDS } = require("./src");
 
 const dotenv = require('dotenv');
 dotenv.config();
@@ -27,5 +27,16 @@ app.get("/dynamodb", async (req, res, next) => {
 });
 
 app.get("/rds", (req, res) => {
-  res.send("RDS");
+  try {
+    var resp = await getRDS.handler();
+    if (resp.statusCode == 200) {
+      console.log("resp", resp)
+      res.send(JSON.parse(resp.body));
+    } else {
+      throw resp
+    }
+  } catch (err) {
+    console.log("err", err)
+    res.status(err.statusCode).send(JSON.parse(err.body))
+  }
 });
