@@ -13,6 +13,7 @@ const {
   RDS_PASSWORD,
   RDS_PORT,
   RDS_DATABASE,
+  RDS_TABLENAME,
 } = require('./config');
 
 // MYSQL SERVICES
@@ -79,7 +80,7 @@ async function successPayload(type, input, message) {
 // MAIN FUNCTION
 exports.handler = async (event) => {
   try {
-    const sql = `select * from ${RDS_DATABASE}`;
+    const sql = `select * from ${RDS_TABLENAME}`;
     connection.query(sql, (err, result) => {
       if (err) {
         throw err;
