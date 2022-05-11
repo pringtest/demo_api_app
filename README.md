@@ -1,5 +1,10 @@
 # demo_api_server
 
+## Setting the environment
+
+1. copy and paste `.env.example` to `.env` and fill up all the parameters.
+
+
 ## dockerize
 
 1. create the container for the app
